@@ -1,0 +1,38 @@
+package ie.gmit.sw;
+
+import java.io.IOException;
+
+import com.sun.org.apache.xml.internal.security.Init;
+
+public class Runner {
+
+	public static void main(String[] args) throws ClassNotFoundException, Exception {
+		Menu menu = new Menu();
+
+		do {
+			String prompt = "<html>" + toHTML() + "<br/>Enter row and column to bomb:</html>";
+
+			// ... Ask user for row and column input.
+			String input = JOptionPane.showInputDialog(null, prompt);
+			if (input == null || input.length() == 0) {
+				break; // Quit if there is no input.
+			}
+
+			try {
+				// ... Split input into row and column. Sub 1 to get internal row/col
+				String[] inputs = input.split(" ");
+				if (inputs.length != 2) {
+					throw new NumberFormatException();
+				}
+				int row = Integer.parseInt(inputs[0]) - 1;
+				int col = Integer.parseInt(inputs[1]) - 1;
+
+				dropBomb(row, col); // ... Drop bomb at those coords.
+			} catch (NumberFormatException unused) {
+				JOptionPane.showMessageDialog(null, "Enter two integers.");
+			}
+		} while (shipsRemain());
+		// menu.menu();
+	}
+
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.awt.TextField"/>
+    <fullyQualifiedTypeName name="java.awt.Button"/>
+    <fullyQualifiedTypeName name="java.lang.Object"/>
+    <fullyQualifiedTypeName name="java.util.jar.JarFile"/>
+    <fullyQualifiedTypeName name="java.net.JarURLConnection"/>
+    <fullyQualifiedTypeName name="java.net.URLConnection"/>
+    <fullyQualifiedTypeName name="sun.net.www.protocol.file.FileURLConnection"/>
+    <fullyQualifiedTypeName name="org.graalvm.compiler.replacements.nodes.ReflectionGetCallerClassNode"/>
+    <fullyQualifiedTypeName name="ie.gmit.sw.Runner"/>
+    <fullyQualifiedTypeName name="java.util.jar.JarEntry"/>
+    <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="java.net.URL"/>
+    <fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
+    <fullyQualifiedTypeName name="java.util.Collection"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="java.lang.Package"/>
+    <fullyQualifiedTypeName name="java.util.jar.JarInputStream"/>
+    <fullyQualifiedTypeName name="java.nio.file.Paths"/>
+    <fullyQualifiedTypeName name="ie.gmit.sw.Menu"/>
+    <fullyQualifiedTypeName name="org.graalvm.compiler.core.common.Fields"/>
+    <fullyQualifiedTypeName name="com.sun.org.apache.xml.internal.security.Init"/>
+    <fullyQualifiedTypeName name="java.lang.module.ModuleDescriptor.Modifier"/>
+    <fullyQualifiedTypeName name="ie.gmit.sw.JARList"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.Type"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.Method"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.Constructor"/>
+    <fullyQualifiedTypeName name="ie.gmit.sw.PositionalStabilityMeasurement"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="ie.gmit.sw.PositionalStabilityCalculator"/>
+    <fullyQualifiedTypeName name="jdk.vm.ci.meta.ModifiersProvider"/>
+    <fullyQualifiedTypeName name="ie.gmit.sw.MethodHidingFactor"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.Field"/>
+    <fullyQualifiedTypeName name="ie.gmit.sw.AttributeHidingFactor"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.Modifier"/>
+    <fullyQualifiedTypeName name="java.lang.Double"/>
+    <fullyQualifiedTypeName name="ie.gmit.sw.JARInformation"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.Parameter"/>
+    <fullyQualifiedTypeName name="com.sun.tools.sjavac.server.IdleResetSjavac"/>
+    <fullyQualifiedTypeName name="java.io.FileInputStream"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.lang.Class"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+</qualifiedTypeNameHistroy>

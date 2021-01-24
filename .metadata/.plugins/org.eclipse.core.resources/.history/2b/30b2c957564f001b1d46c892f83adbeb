@@ -1,0 +1,68 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
+/**
+ * This class calculates the method hiding factor metric. If the method hiding
+ * factor calculation is 100% then it implies that all methods are private,
+ * indicating either a god class or an application with very little
+ * functionality. A very high MHF implies that very few methods can be reused
+ * with a view to over-riding and refining. A low MHF indicates an insufficient
+ * level of abstraction in a design, a large proportion of unprotected methods
+ * and a high probability of error. Increasing MHF has been shown to decrease
+ * defects and increase overall quality. While the optimal MHF threshold range
+ * depends on the nature of the problem domain, a range of 8-25% MHF has been
+ * suggested as reasonable.
+ * 
+ * @author William Vida
+ */
+public class MethodHidingFactor {
+
+	/**
+	 * Declare the variables and declare constants for the visibility scores.
+	 */
+	private final double PRIVATE_SCORE = 1.0;
+	private final double PROTECTED_SCORE = 0.5;
+	private final double PUBLIC_SCORE = 0.0;
+	private double numberOfHiddenMethods = 0.0;
+	private double numberOfMethods = 0.0;
+
+	/**
+	 * This method calculates the method hiding factor.
+	 * 
+	 * @param cls
+	 */
+	@SuppressWarnings("rawtypes")
+	public void methodHidingFactorCalculation(Class cls) {
+		/**
+		 * Declare the variables.
+		 */
+		Method[] methods = cls.getMethods();
+
+		numberOfHiddenMethods = 0.0;
+		numberOfMethods = 0.0;
+
+		/**
+		 * Iterate over the methods, count the number of methods and increment depending
+		 * on the method visibility.
+		 */
+		for (Method m : methods) {
+			if (m.getModifiers() == Modifier.PRIVATE)
+				numberOfHiddenMethods += PRIVATE_SCORE;
+			else if (m.getModifiers() == Modifier.PROTECTED)
+				numberOfHiddenMethods += PROTECTED_SCORE;
+			else if (m.getModifiers() == Modifier.PUBLIC)
+				numberOfHiddenMethods += PUBLIC_SCORE;
+
+			numberOfMethods++;
+		}
+
+		/**
+		 * Output the method hiding factor calculation.
+		 */
+		System.out.println("The class " + cls + " has a method hiding factor value of "
+				+ numberOfHiddenMethods / numberOfMethods + ".\n");
+	}
+
+}

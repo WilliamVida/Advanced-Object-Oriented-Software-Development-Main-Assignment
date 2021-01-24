@@ -1,0 +1,64 @@
+package ie.gmit.sw;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
+
+public class Testing5 {
+
+	public static void main(String[] args) throws IOException {
+		File file = new File("src/ie/gmit/sw/Runner.java");
+		getLines(file);
+	}
+
+	private static int getLines(File f) throws IOException {
+		JarInputStream in = new JarInputStream(new FileInputStream(new File("wordcloud.jar")));
+		JarEntry next = in.getNextJarEntry();
+
+		while (next != null) {
+			if (next.getName().endsWith(".class")) {
+				String name = next.getName();
+				name = name.replaceAll(".class", "");
+				System.out.println(name);
+				if (!name.contains("$")) {
+					name.substring(0, name.length() - ".class".length());
+				}
+				// classes.add(name.toString());
+				System.out.println(name);
+
+				// getLines(name);
+			}
+			next = in.getNextJarEntry();
+		}
+
+		FileReader fr = new FileReader(f);
+		BufferedReader br = new BufferedReader(fr);
+		int i = 0;
+		boolean isEOF = false;
+
+		do {
+			String t = next.getName();
+			t = t.replaceAll(".class", "");
+
+			if (t != null) {
+				isEOF = true;
+				t = t.replaceAll("\\n|\\t|\\s", "");
+				if ((!t.equals("")) && (!t.startsWith("//"))) {
+					i = i + 1;
+				}
+			} else {
+				isEOF = false;
+			}
+		} while (isEOF);
+
+		br.close();
+		fr.close();
+		System.out.println(i);
+		return i;
+	}
+
+}

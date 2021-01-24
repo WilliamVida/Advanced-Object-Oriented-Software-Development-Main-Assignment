@@ -1,0 +1,120 @@
+package ie.gmit.sw;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
+
+import one.microstream.storage.types.EmbeddedStorage;
+import one.microstream.storage.types.EmbeddedStorageManager;
+
+/**
+ * Menu allows the user to input a JAR file to be analysed. The classes in the
+ * JAR file are processed through a while loop are sent to other classes to get
+ * information and metrics on them.
+ * 
+ * @author William Vida
+ */
+public class Menu {
+
+	/**
+	 * Declare the variables and instances.
+	 */
+	public int classCount = 0;
+	private EmbeddedStorageManager db = null;
+	private static List<String> root = new ArrayList<>();
+
+	/**
+	 * This method allows the user to input a JAR file to be analysed.
+	 * 
+	 * @throws IOException
+	 * @throws Exception
+	 * @throws ClassNotFoundException
+	 */
+	@SuppressWarnings("rawtypes")
+	public void menu() throws IOException, Exception, ClassNotFoundException {
+		/**
+		 * Declare the variables.
+		 */
+		Scanner in = new Scanner(System.in);
+		MethodHidingFactor methodHidingFactor = new MethodHidingFactor();
+		AttributeHidingFactor attributeHidingFactor = new AttributeHidingFactor();
+		JARInformation jarInformation = new JARInformation();
+		JarInputStream inputJar;
+		JarEntry next;
+		File inputFile;
+		Class cls = null;
+		ArrayList<Class> classList = new ArrayList<>();
+
+		/**
+		 * Allow a JAR file to be entered by the user.
+		 */
+		System.out.println(
+				"Enter the name of the JAR file to get the class names, fields, methods, method return type, method count, contructors, attribute hiding factor and method hiding factor of each class.");
+		inputFile = new File(in.nextLine());
+		inputJar = new JarInputStream(new FileInputStream(inputFile));
+		next = inputJar.getNextJarEntry();
+
+		/**
+		 * The while loop goes through the JAR file and send the classes to the metric
+		 * classes.
+		 */
+		while (next != null) {
+			if (next.getName().endsWith(".class")) {
+				String name = next.getName().replaceAll("/", "\\.");
+				name = name.replaceAll(".class", "");
+
+				if (!name.contains("$")) {
+					classCount++;
+					name.substring(0, name.length() - ".class".length());
+					classList.add(Class.forName(name));
+				}
+
+				cls = Class.forName(name);
+
+//				jarInformation.jarInformation(cls);
+//				attributeHidingFactor.attributeHidingFactorCalculation(cls);
+//				methodHidingFactor.methodHidingFactorCalculation(cls);
+			}
+
+			next = inputJar.getNextJarEntry();
+		}
+		
+		
+
+		System.out.println("The JAR has " + classCount + " classes.");
+
+		// go();
+
+		inputJar.close();
+		in.close();
+		System.out.println("\nEnd.");
+	}
+
+	/**
+	 * This method does not work correctly but if it did it would initialise the
+	 * database, execute a query then shutdown.
+	 */
+	public void go() {
+		root = JARInformationList.getInstance().getJARInformation();
+		db = EmbeddedStorage.start(root, Paths.get("./data"));
+		// db.storeRoot();
+		query();
+		db.shutdown();
+	}
+
+	/**
+	 * This method does not work but if it did it would show all the metrics stored
+	 * in the database.
+	 */
+	private static void query() {
+		System.out.println("\n[Query] Show all metrics");
+		root.stream().forEach(System.out::println);
+	}
+
+}

@@ -1,0 +1,64 @@
+package ie.gmit.sw;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
+
+public class Testing6 {
+
+	public static void main(String[] args) throws IOException {
+		JarInputStream in = new JarInputStream(new FileInputStream(new File("wordcloud.jar")));
+		JarEntry next = in.getNextJarEntry();
+
+		while (next != null) {
+			if (next.getName().endsWith(".class")) {
+				String name = next.getName().replaceAll("/", "\\.");
+				name = name.replaceAll(".class", "");
+
+				if (!name.contains("$"))
+					name.substring(0, name.length() - ".class".length());
+
+				System.out.println(name);
+			}
+			next = in.getNextJarEntry();
+		}
+
+		FileReader fr = new FileReader("wordcloud.jar");
+		BufferedReader br = new BufferedReader(fr);
+		int i = 0;
+		boolean isEOF = false;
+
+		getLines();
+	}
+
+	private static int getLines() throws IOException {
+		FileReader fr = new FileReader("wordcloud.jar");
+		BufferedReader br = new BufferedReader(fr);
+		int i = 0;
+		boolean isEOF = false;
+		do {
+			String t = br.readLine();
+
+			if (t != null) {
+				isEOF = true;
+				t = t.replaceAll("\\n|\\t|\\s", "");
+
+				if ((!t.equals("")) && (!t.startsWith("//"))) {
+					i = i + 1;
+				}
+			} else {
+				isEOF = false;
+			}
+		} while (isEOF);
+		
+		br.close();
+		fr.close();
+		System.out.println("i " + i);
+		return i;
+	}
+
+}

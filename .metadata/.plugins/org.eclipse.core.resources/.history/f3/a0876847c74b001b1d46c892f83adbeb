@@ -1,0 +1,24 @@
+package ie.gmit.sw;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class JARList {
+
+	private static JARInformation jari = new JARInformation();
+
+	private JARList() {
+
+	}
+
+	public static JARInformation getInstance() {
+		return jari;
+	}
+
+	public List<JARInformation> getJARInformationList() {
+		List<JARInformation> customers = new ArrayList<>();
+
+		return customers;
+	}
+
+}

@@ -1,0 +1,15 @@
+package ie.gmit.sw;
+
+public class MainClass {
+	public static void main(String[] args) {
+		LOC locObj = new LOC();
+
+		if (args.length == 0) {
+			System.out.println("Please provide a path of Directory or File!");
+		} else {
+			locObj.start(String.join(" ", args).trim());
+			System.out.println(locObj.toString());
+		}
+	}
+
+}

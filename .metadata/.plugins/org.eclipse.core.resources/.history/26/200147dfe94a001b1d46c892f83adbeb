@@ -1,0 +1,22 @@
+package ie.gmit.sw;
+
+public class Testing2 {
+
+	public static void main(String[] args) {
+
+		try {
+			Class cls = Class.forName("Runner");
+
+			ClassLoader cLoader = cls.getClassLoader();
+
+			Class cls2 = Class.forName("java.lang.Thread", true, cLoader);
+
+			// returns the name of the class
+			System.out.println("Class = " + cls.getName());
+			System.out.println("Class = " + cls2.getName());
+		} catch (ClassNotFoundException ex) {
+			System.out.println(ex.toString());
+		}
+	}
+
+}

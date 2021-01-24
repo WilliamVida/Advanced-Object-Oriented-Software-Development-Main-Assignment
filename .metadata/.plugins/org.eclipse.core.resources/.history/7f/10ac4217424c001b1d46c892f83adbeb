@@ -1,0 +1,15 @@
+package ie.gmit.sw;
+
+public class PositionalStabilityCalculator {
+
+	private int afferentCoupling;
+    private int efferentCoupling;
+    
+    public void getPositionalStability() {
+    		
+    	
+    	
+    }
+	
+
+}

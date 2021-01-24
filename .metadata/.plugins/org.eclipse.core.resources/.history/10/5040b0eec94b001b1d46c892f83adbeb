@@ -1,0 +1,43 @@
+package ie.gmit.sw;
+
+import java.util.ArrayList;
+
+public class PositionalStabilityMeasurement {
+
+	private int afferentCoupling;
+	private int efferentCoupling;
+	private ArrayList<Class> classes = new ArrayList<Class>();
+
+	public int getAfferentCoupling() {
+		return afferentCoupling;
+	}
+
+	public void setAfferentCoupling(int afferentCoupling) {
+		this.afferentCoupling = afferentCoupling;
+	}
+
+	public int getEfferentCoupling() {
+		return efferentCoupling;
+	}
+
+	public void setEfferentCoupling(int efferentCoupling) {
+		this.efferentCoupling = efferentCoupling;
+	}
+
+	public ArrayList<Class> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(ArrayList<Class> classes) {
+		this.classes = classes;
+	}
+
+	public double getStability() {
+		double stability = 1;
+
+		stability = getEfferentCoupling() / (getAfferentCoupling() + getEfferentCoupling());
+
+		return stability;
+	}
+
+}

@@ -1,0 +1,26 @@
+package ie.gmit.sw;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class JARInformationList {
+
+	private static JARInformationList jrl = new JARInformationList();
+
+	private JARInformationList() {
+
+	}
+
+	public static JARInformationList getInstance() {
+		return jrl;
+	}
+
+	public List<String> getJARList() {
+		List<String> customers = new ArrayList<>();
+		
+		customers.add("Add to list");
+
+		return customers;
+	}
+
+}

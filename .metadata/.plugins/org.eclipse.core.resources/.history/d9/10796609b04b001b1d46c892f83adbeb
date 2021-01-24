@@ -1,0 +1,21 @@
+package ie.gmit.sw;
+
+public class AbstractHandler 
+{
+	/**This is a very traditional method, you
+	 * can obtain the dynamic object by using
+	 * several if conditions.
+	 * @param handlerName 
+	 * @return an object of type {@link Handler}
+	 */
+	public static Handler getHandler(String handlerName) {
+		Handler handler = null;
+		try {
+			handler = (Handler) Class.forName("com.core.cc.handler." + handlerName + "Handler").newInstance();
+		} catch (Exception e) {
+			System.out.println("There is no specific handler");
+		}
+		return handler;
+	}
+
+}

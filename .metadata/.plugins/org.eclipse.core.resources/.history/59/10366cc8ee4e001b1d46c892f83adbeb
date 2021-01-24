@@ -1,0 +1,42 @@
+package ie.gmit.sw;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * This class is for the database but it does function correctly.
+ * 
+ * @author William Vida
+ */
+public class JARList {
+	
+	/**
+	 * Declare instance of the class.
+	 */
+	private static JARList jari = new JARList();
+
+	private JARList() {
+
+	}
+	
+	/**
+	 * This method return a list of the JAR information.
+	 * 
+	 * @return
+	 */
+	public static JARList getInstance() {
+		return jari;
+	}
+
+	/**
+	 * This would method return the JAR information.
+	 * 
+	 * @return
+	 */
+	public List<JARInformation> getJARInformationList() {
+		List<JARInformation> jars = new ArrayList<>();
+
+		return jars;
+	}
+
+}

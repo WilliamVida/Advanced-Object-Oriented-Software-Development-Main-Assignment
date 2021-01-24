@@ -1,0 +1,189 @@
+package ie.gmit.sw;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
+
+import one.microstream.storage.types.EmbeddedStorage;
+import one.microstream.storage.types.EmbeddedStorageManager;
+
+/**
+ * Menu allows the user to input a JAR file to be analysed. The classes in the
+ * JAR file are processed through a while loop are sent to other classes to get
+ * information and metrics on them.
+ * 
+ * @author William Vida
+ */
+public class Menu {
+
+	/**
+	 * Declare the variables and instances.
+	 */
+	public int classCount = 0;
+	private EmbeddedStorageManager db = null;
+	private static List<String> root = new ArrayList<>();
+
+	/**
+	 * This method allows the user to input a JAR file to be analysed.
+	 * 
+	 * @throws IOException
+	 * @throws Exception
+	 * @throws ClassNotFoundException
+	 */
+	@SuppressWarnings("rawtypes")
+	public void menu() throws IOException, Exception, ClassNotFoundException {
+		/**
+		 * Declare the variables.
+		 */
+
+		/**
+		 * Allow the user to input.
+		 */
+		Scanner in = new Scanner(System.in);
+
+		/**
+		 * Declare an instance of the JAR information class.
+		 */
+		JARInformation jarInformation = new JARInformation();
+
+		/**
+		 * Declare an instance of the attribute hiding factor class.
+		 */
+		AttributeHidingFactor attributeHidingFactor = new AttributeHidingFactor();
+
+		/**
+		 * Declare an instance of the method hiding factor class.
+		 */
+		MethodHidingFactor methodHidingFactor = new MethodHidingFactor();
+
+		/**
+		 * Allows the user to input the file which will take in a JAR file.
+		 */
+		File inputFile;
+
+		/**
+		 * Declare an input JAR.
+		 */
+		JarInputStream inputJar;
+
+		/**
+		 * Declare the next JAR.
+		 */
+		JarEntry next;
+
+		/**
+		 * Initialise cls of type Class to be passed to other classes.
+		 */
+		Class cls = null;
+
+		/**
+		 * An ArrayList to store the classes contained in the JAR file.
+		 */
+		ArrayList<Class> classList = new ArrayList<>();
+
+		/**
+		 * Allows the user to input menu options.
+		 */
+		int menuOption = 0;
+
+		/**
+		 * Allow a JAR file to be entered by the user.
+		 */
+		System.out.println(
+				"Enter the name of the JAR file to get the class names, fields, methods, method count, methed parameter type, method return type, and contructors of each class.");
+		inputFile = new File(in.nextLine());
+		inputJar = new JarInputStream(new FileInputStream(inputFile));
+		next = inputJar.getNextJarEntry();
+
+		/**
+		 * The while loop goes through the JAR file, adds the classes to an ArrayList
+		 * and outputs sends the JAR classes to a metric to output information about the
+		 * JAR classes.
+		 */
+		while (next != null) {
+			if (next.getName().endsWith(".class")) {
+				String name = next.getName().replaceAll("/", "\\.");
+				name = name.replaceAll(".class", "");
+
+				if (!name.contains("$")) {
+					classCount++;
+					name.substring(0, name.length() - ".class".length());
+					classList.add(Class.forName(name));
+				}
+
+				cls = Class.forName(name);
+
+				/**
+				 * Send the class in the JAR to the JARInformation class to get information
+				 * about it.
+				 */
+				jarInformation.jarInformation(cls);
+			}
+
+			next = inputJar.getNextJarEntry();
+		}
+
+		System.out.println("The JAR has " + classCount + " classes.");
+
+		/**
+		 * A console menu using a while loop to allow the user to choose which metric to
+		 * analyse from the JAR file.
+		 */
+		System.out.println("\nEnter 1 to get the attribute hiding factor of each class.");
+		System.out.println("Enter 2 to get the method hiding factor of each class.");
+		System.out.println("Enter -1 to exit.");
+		menuOption = in.nextInt();
+
+		while (menuOption != -1) {
+			if (menuOption == 1) {
+				for (Class c : classList) {
+					attributeHidingFactor.attributeHidingFactorCalculation(c);
+				}
+			} else if (menuOption == 2) {
+				for (Class c : classList)
+					methodHidingFactor.methodHidingFactorCalculation(c);
+			} else {
+				System.out.println("Invalid input.");
+			}
+
+			System.out.println("\nEnter 1 to get the attribute hiding factor of each class.");
+			System.out.println("Enter 2 to get the method hiding factor of each class.");
+			System.out.println("Enter -1 to exit.");
+			menuOption = in.nextInt();
+		}
+
+		// go();
+
+		inputJar.close();
+		in.close();
+		System.out.println("\nEnd.");
+	}
+
+	/**
+	 * This method does not work correctly but if it did it would initialise the
+	 * database, execute a query then shutdown.
+	 */
+	public void go() {
+		root = JARInformationList.getInstance().getJARInformation();
+		db = EmbeddedStorage.start(root, Paths.get("./data"));
+		// db.storeRoot();
+		query();
+		db.shutdown();
+	}
+
+	/**
+	 * This method does not work but if it did it would show all the metrics stored
+	 * in the database.
+	 */
+	private static void query() {
+		System.out.println("\n[Query] Show all metrics");
+		root.stream().forEach(System.out::println);
+	}
+
+}

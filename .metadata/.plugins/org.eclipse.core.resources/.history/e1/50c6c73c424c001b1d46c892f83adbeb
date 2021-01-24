@@ -1,0 +1,24 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+
+public class PositionalStabilityCalculator {
+
+	private int afferentCoupling;
+	private int efferentCoupling;
+
+	public void getPositionalStability() {
+		// fields
+		// methods
+		// construtors
+		// interfaces
+
+		Field[] fields = cls.getDeclaredFields(); // Get the set of Fields
+		for (Field f : fields) {
+
+		}
+
+	}
+
+}

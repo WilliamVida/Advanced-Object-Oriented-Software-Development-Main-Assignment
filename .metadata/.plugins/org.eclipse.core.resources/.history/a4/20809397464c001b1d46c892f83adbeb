@@ -1,0 +1,36 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+
+public class PositionalStabilityCalculator {
+
+	private int afferentCoupling;
+	private int efferentCoupling;
+
+	public void getPositionalStability(Class cls) {
+		// fields
+		// methods
+		// constructors
+		// interfaces
+
+		Field[] fields = cls.getDeclaredFields();
+		for (Field f : fields) {
+			System.out.println("Class: " + cls + "\nField: " + f);
+		}
+
+		Method[] methods = cls.getMethods();
+		for (Method m : methods) {
+			System.out.println("Class: " + cls + "\nMethod: " + m);
+		}
+
+		Constructor[] constructors = cls.getMethods();
+		for (Constructor c : constructors) {
+			System.out.println("Class: " + cls + "\nMethod: " + c);
+		}
+
+	}
+
+}

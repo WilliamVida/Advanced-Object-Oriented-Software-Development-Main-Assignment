@@ -1,0 +1,63 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
+/**
+ * This class calculates the attribute hiding factor metric. The attribute
+ * hiding factor calculation should always be zero as all instance variables
+ * should be private. Even low AHF values should warrant attention and
+ * investigation as abstraction and encapsulation have primacy over all other
+ * concerns after robustness.
+ * 
+ * @author William Vida
+ */
+public class AttributeHidingFactor {
+
+	/**
+	 * Declare the variables and declare constants for the visibility scores.
+	 */
+	private final double PRIVATE_SCORE = 1.0;
+	private final double PROTECTED_SCORE = 0.5;
+	private final double PUBLIC_SCORE = 0.0;
+	private double numberOfHiddenAttributes = 0.0;
+	private double numberOfAttributes = 0.0;
+
+	/**
+	 * This method calculates the attribute hiding factor.
+	 * 
+	 * @param cls
+	 */
+	@SuppressWarnings("rawtypes")
+	public void attributeHidingFactorCalculation(Class cls) {
+		/**
+		 * Declare the variables.
+		 */
+		Field[] fields = cls.getFields();
+
+		numberOfHiddenAttributes = 0.0;
+		numberOfAttributes = 0.0;
+
+		/**
+		 * Iterate over the attributes, count the number of attribute and increment
+		 * depending on the attribute visibility.
+		 */
+		for (Field f : fields) {
+			if (f.getModifiers() == Modifier.PRIVATE)
+				numberOfHiddenAttributes += PRIVATE_SCORE;
+			else if (f.getModifiers() == Modifier.PRIVATE)
+				numberOfHiddenAttributes += PROTECTED_SCORE;
+			else if (f.getModifiers() == Modifier.PRIVATE)
+				numberOfHiddenAttributes += PUBLIC_SCORE;
+
+			numberOfAttributes++;
+		}
+
+		/**
+		 * Output the attribute hiding factor calculation.
+		 */
+		System.out.println("The class " + cls + " has an attribute hiding factor value of "
+				+ numberOfHiddenAttributes / numberOfAttributes + ".\n");
+	}
+
+}

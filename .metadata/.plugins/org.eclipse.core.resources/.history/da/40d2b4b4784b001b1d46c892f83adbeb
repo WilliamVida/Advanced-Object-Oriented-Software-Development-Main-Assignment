@@ -1,0 +1,25 @@
+package ie.gmit.sw;
+
+public class JARList {
+	
+	private static JARList jarList= new JARList();
+	
+	private JARList() {
+
+	}
+
+	public static JARList getInstance() {
+		return jarList;
+	}
+	
+	public List<Customer> getCustomerList() {
+		List<Customer> customers = new ArrayList<>();
+
+		// Build a customer and add to collection
+		JARInformation jarInformation=new JARInformation(pack, cls);
+		
+
+		return customers;
+	}
+
+}

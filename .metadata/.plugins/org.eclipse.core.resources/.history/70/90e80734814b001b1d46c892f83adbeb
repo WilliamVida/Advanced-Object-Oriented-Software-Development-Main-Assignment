@@ -1,0 +1,143 @@
+package ie.gmit.sw;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Scanner;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
+
+import one.microstream.storage.types.EmbeddedStorageManager;
+
+public class Runner {
+
+	// -cp .;./lib/*
+
+	private EmbeddedStorageManager db = null;
+	private List<String> root = new ArrayList<>();
+
+	public void go() {
+//		root = CustomerListFactory.getInstance().getCustomerList();
+//		db = EmbeddedStorage.start(root, Paths.get("./data"));
+
+	}
+
+	public static void main(String[] args) throws Exception, ClassNotFoundException {
+		Scanner in = new Scanner(System.in);
+		JarInputStream inputJar;
+		JarEntry next;
+		ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
+		File inputFile;
+
+		Class cls = null;
+		List<String> classNames = new ArrayList<String>();
+		Method[] methods = null;
+		Constructor[] cons = null;
+		Package pack = null;
+		Field[] fields = null;
+		int classCount = 0;
+		ArrayList<Class> runList = new ArrayList<Class>();
+
+		System.out.println("Enter name of JAR file.");
+		// wordcloud.jar
+		inputFile = new File(in.nextLine());
+
+		inputJar = new JarInputStream(new FileInputStream(inputFile));
+		next = inputJar.getNextJarEntry();
+
+		JARInformation jarInformation = new JARInformation(null, null);
+
+		while (next != null) {
+			if (next.getName().endsWith(".class")) {
+				String name = next.getName().replaceAll("/", "\\.");
+				name = name.replaceAll(".class", "");
+
+				if (!name.contains("$")) {
+				classCount++;
+					name.substring(0, name.length() - ".class".length());
+				}
+				classNames.add(name);
+
+				cls = Class.forName(name);
+
+				jarInformation.setPack(pack);
+				runList.add(cls);
+
+				pack = cls.getPackage();
+				methods = cls.getMethods();
+				cons = cls.getConstructors();
+				fields = cls.getFields();
+			}
+
+			next = inputJar.getNextJarEntry();
+		}
+
+		System.out.println("\nPackage" + jarInformation.getPack());
+		jarInformation.setCls(runList);
+		System.out.println("Classes: " + jarInformation.getCls());
+		System.out.println("Number of Classes: " + jarInformation.getCls().size());
+		
+		ArrayList<JARInformation> jarInfo = new ArrayList<>();
+
+
+//		for (int i = 0; i < methods.length; i++) {
+//			System.out.println("Method: " + methods[i]);
+//			Class c = methods[i].getReturnType();
+//			System.out.println("Has a return type of " + c + "\n");
+//		}
+
+//		System.out.println("Package: " + pack + "\n");
+//
+//		System.out.println("Number of classes: " + classCount);
+//		for (String name : classNames) {
+//			System.out.println("Class: " + name);
+//		}
+//
+//		System.out.println();
+//
+//		for (int i = 0; i < fields.length; i++) {
+//			System.out.println("Fields: " + fields[i]);
+//		}
+//
+//		for (int i = 0; i < methods.length; i++) {
+//			System.out.println("Method: " + methods[i]);
+//			Class c = methods[i].getReturnType();
+//			System.out.println("Has a return type of " + c + "\n");
+//		}
+//
+//		for (int i = 0; i < cons.length; i++) {
+//			System.out.println("Constructor: " + cons[i]);
+//		}
+
+		System.out.println("End.");
+		inputJar.close();
+		in.close();
+	}
+
+	public static void visit(Class cls) {
+		// Store the name of the class or something else in the object store
+		// Compute the some metric on the class
+		Package pack = cls.getPackage(); // Get the package
+		boolean iface = cls.isInterface(); // Is it an interface?
+		Class[] interfaces = cls.getInterfaces(); // Get the set of interface it implements
+		Constructor[] cons = cls.getConstructors(); // Get the set of constructors
+		// Class[] params = cons[i].getParameterTypes(); //Get the parameters
+		Field[] fields = cls.getFields(); // Get the fields / attributes
+		Method[] methods = cls.getMethods(); // Get the set of methods
+		// Class c = methods[i].getReturnType(); //Get a method return type
+		// Class[] params = methods[i];
+		Method[] m = cls.getMethods();
+
+		for (Method n : m) {
+			System.out.println(m);
+			System.out.println(n);
+		}
+	}
+
+}

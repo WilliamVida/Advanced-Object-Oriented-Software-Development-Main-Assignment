@@ -1,0 +1,28 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
+public class MethodHidingFactor {
+
+	private double numberOfPrivate = 0;
+	private double numberOfMethods = 0;
+
+	private void methodHidingFactorCalculation(Class cls) {
+		numberOfPrivate = 0;
+		numberOfMethods = 0;
+
+		Method[] methods = cls.getMethods();
+
+		for (Method m : methods) {
+			if (m.getModifiers() == Modifier.PRIVATE) {
+				System.out.println(numberOfPrivate);
+				numberOfPrivate++;
+			}
+		}
+
+		System.out.println("Class " + cls + "has a method hiding factor of " + numberOfPrivate / numberOfMethods);
+	}
+
+}

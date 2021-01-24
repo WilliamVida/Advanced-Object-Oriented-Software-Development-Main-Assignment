@@ -1,0 +1,42 @@
+package ie.gmit.sw;
+
+import java.io.IOException;
+
+public class Runner {
+
+	public static void main(String[] args) throws ClassNotFoundException, Exception {
+		Menu menu =  new Menu();
+		
+		menu.menu();
+	}
+
+
+//		for (int i = 0; i < methods.length; i++) {
+//			System.out.println("Method: " + methods[i]);
+//			Class c = methods[i].getReturnType();
+//			System.out.println("Has a return type of " + c + "\n");
+//		}
+
+//		System.out.println("Package: " + pack + "\n");
+//
+//		System.out.println("Number of classes: " + classCount);
+//		for (String name : classNames) {
+//			System.out.println("Class: " + name);
+//		}
+//
+//		System.out.println();
+//
+//		for (int i = 0; i < fields.length; i++) {
+//			System.out.println("Fields: " + fields[i]);
+//		}
+//
+//		for (int i = 0; i < methods.length; i++) {
+//			System.out.println("Method: " + methods[i]);
+//			Class c = methods[i].getReturnType();
+//			System.out.println("Has a return type of " + c + "\n");
+//		}
+//
+//		for (int i = 0; i < cons.length; i++) {
+//			System.out.println("Constructor: " + cons[i]);
+//		}
+}

@@ -1,0 +1,11 @@
+package ie.gmit.sw;
+
+public class TestDynamicHandler 
+{
+	public static void main(String[] args) 
+	{
+		Handler handler = AbstractHandler.getHandler("B");
+		handler.handle();
+	}
+
+}

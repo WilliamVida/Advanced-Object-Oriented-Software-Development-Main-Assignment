@@ -1,0 +1,17 @@
+package ie.gmit.sw;
+
+import java.io.IOException;
+
+import com.sun.org.apache.xml.internal.security.Init;
+
+public class Runner {
+
+	public static void main(String[] args) throws ClassNotFoundException, Exception {
+		Menu menu = new Menu();
+		
+		init();
+
+		//menu.menu();
+	}
+
+}

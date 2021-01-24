@@ -1,0 +1,117 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import one.microstream.storage.types.EmbeddedStorage;
+import one.microstream.storage.types.EmbeddedStorageManager;
+
+public class JARInformation {
+
+	private Package pack;
+	private ArrayList<Class> cls;
+	private Field[] fields;
+	private Method[] methods;
+	private Constructor[] constructors;
+
+	public void jarInformation(Class cls) {
+		Field[] fields = cls.getDeclaredFields();
+
+		Method[] methods = cls.getMethods();
+		int methodCount = 0;
+		Parameter[] methodParameters;
+		Class[] methodParameterTypes;
+
+		Constructor[] constructors = cls.getConstructors();
+		Parameter[] constructorParameters;
+		Class[] constructorParameterTypes;
+
+		Class[] interfaces = cls.getInterfaces();
+
+		for (Field f : fields) {
+			System.out.println("Field: " + f + " of type: " + f.getType());
+		}
+
+		for (Method m : methods) {
+			System.out.println("\nClass: " + cls);
+			System.out.println("Method: " + m);
+
+			System.out.println("Parameter count: " + m.getModifiers());
+
+			methodParameters = m.getParameters();
+			for (Parameter mp : methodParameters) {
+				System.out.println("Method parameters: " + mp);
+			}
+
+			methodParameterTypes = m.getParameterTypes();
+			for (Class mpt : methodParameterTypes) {
+				System.out.println("Method parameter type: " + mpt);
+			}
+
+			methodCount++;
+			System.out.println("Method return type: " + m.getReturnType());
+		}
+
+		System.out.println("\nThe number of methods in the class " + cls + " are: " + methodCount);
+
+		for (Constructor c : constructors) {
+			System.out.println("\nClass: " + cls);
+			System.out.println("Constrcutor: " + c);
+
+			constructorParameters = c.getParameters();
+			for (Parameter cp : constructorParameters) {
+				System.out.println("Constructor parameters: " + cp);
+			}
+
+			constructorParameterTypes = c.getParameterTypes();
+			for (Class cpt : constructorParameterTypes) {
+				System.out.println("Constructor parameter type: " + cpt);
+			}
+		}
+
+		for (Class i : interfaces) {
+			System.out.println("\nClass: " + cls);
+			System.out.println("Interface: " + i);
+		}
+	}
+
+	private static JARInformation clf = new JARInformation();
+
+	public JARInformation() {
+
+	}
+
+	public static JARInformation getInstance() {
+		return clf;
+	}
+
+	public ArrayList<String> getCustomerList() {
+		ArrayList<String> customers = new ArrayList<>();
+
+		customers.add("In list");
+
+		return customers;
+	}
+	
+	public void go() {
+		root = getInstance().getCustomerList();
+		db = EmbeddedStorage.start(root, Paths.get("./data"));
+		// db.storeRoot();
+		query();
+		update();
+		db.shutdown();
+	}
+
+	private static void query() {
+		System.out.println("\n[Query] Show all metrics");
+		root.stream().forEach(System.out::println);
+	}
+	private EmbeddedStorageManager db = null;
+	private static List<String> root = new ArrayList<>();
+
+}

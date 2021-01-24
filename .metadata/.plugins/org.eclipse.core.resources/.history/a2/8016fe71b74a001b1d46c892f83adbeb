@@ -1,0 +1,26 @@
+package ie.gmit.sw;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Testing7 {
+
+	public static void main(String[] args) throws IOException {
+
+		InputStream is = getClass().getResourceAsStream("3Columns.csv");
+	    InputStreamReader isr = new InputStreamReader(is);
+	    BufferedReader br = new BufferedReader(isr);
+	    String line;
+	    while ((line = br.readLine()) != null) 
+	    {
+	      CSVLineTokenizer tok = new CSVLineTokenizer(line);
+	      assertEquals("Should be three columns in each row",3,tok.countTokens());
+	    }
+	    br.close();
+	    isr.close();
+	    is.close();
+	}
+
+}

@@ -1,0 +1,35 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
+public class AttributeHidingFactor {
+
+	private final double PRIVATE_SCORE = 1.0;
+	private final double PROTECTED_SCORE = 0.5;
+	private final double PUBLIC_SCORE = 0.0;
+	private double numberOfHiddenAttributes = 0.0;
+	private double numberOfAttributes = 0.0;
+	private double attributeHidingFactor = numberOfHiddenAttributes / numberOfAttributes;
+
+	public void attributeHidingFactorCalculation(Class cls) {
+		numberOfHiddenAttributes = 0;
+		numberOfAttributes = 0;
+
+		Field[] fields = cls.getFields();
+
+		for (Field f : fields) {
+			if (f.getModifiers() == Modifier.PRIVATE)
+				numberOfHiddenAttributes += PRIVATE_SCORE;
+			else if (f.getModifiers() == Modifier.PRIVATE)
+				numberOfHiddenAttributes += PROTECTED_SCORE;
+			else if (f.getModifiers() == Modifier.PRIVATE)
+				numberOfHiddenAttributes += PUBLIC_SCORE;
+
+			numberOfAttributes++;
+		}
+
+		System.out.println("The class " + cls + " has an attribute hiding factor value of " + numberOfHiddenAttributes / numberOfAttributes);
+	}
+
+}

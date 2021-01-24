@@ -1,0 +1,60 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+public class PositionalStabilityCalculator {
+
+	private int afferentCoupling;
+	private int efferentCoupling;
+
+	public void getPositionalStability(Class cls) {
+		// fields
+		// methods
+		// constructors
+		// interfaces
+		// method parameters
+
+		Field[] fields = cls.getDeclaredFields();
+		Method[] methods = cls.getMethods();
+		Constructor[] constructors = cls.getConstructors();
+		Class[] interfaces = cls.getInterfaces();
+		Class[] methodParameters;
+		
+
+		for (Field f : fields) {
+			System.out.println("\nClass: " + cls + "\nField: " + f);
+		}
+
+		for (Method m : methods) {
+			System.out.println("\nClass: " + cls + "\nMethod: " + m);
+			methodParameters=m.getParameterTypes();
+			System.out.println(m.getTypeParameters());
+		}
+        for (Method method : methods) {
+            methodParams = method.getParameterTypes();
+
+            for (Class methodParam : methodParams) {
+                if (classMap.containsKey(methodParam.getName())) {
+                    // increase out degrees for this class
+                    classMap.get(cls.getName()).increaseOutDegrees();
+
+                    // increase in degrres for the method param class
+                    classMap.get(methodParam.getName()).increaseInDegrees();
+                }
+            }
+
+		for (Constructor c : constructors) {
+			System.out.println("\nClass: " + cls + "\nConstructor: " + c);
+		}
+
+		for (Class i : interfaces) {
+			System.out.println("\nClass: " + cls + "\nInterface: " + i);
+		}
+		
+		
+
+	}
+
+}

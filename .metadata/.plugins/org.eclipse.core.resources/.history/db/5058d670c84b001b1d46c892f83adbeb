@@ -1,0 +1,30 @@
+package ie.gmit.sw;
+
+public class PositionalStabilityMeasurement {
+
+	private int afferentCoupling;
+	private int efferentCoupling;
+
+	public PositionalStabilityMeasurement(int afferentCoupling, int efferentCoupling) {
+		super();
+		this.afferentCoupling = afferentCoupling;
+		this.efferentCoupling = efferentCoupling;
+	}
+
+	public int getAfferentCoupling() {
+		return afferentCoupling;
+	}
+
+	public void setAfferentCoupling(int afferentCoupling) {
+		this.afferentCoupling = afferentCoupling;
+	}
+
+	public int getEfferentCoupling() {
+		return efferentCoupling;
+	}
+
+	public void setEfferentCoupling(int efferentCoupling) {
+		this.efferentCoupling = efferentCoupling;
+	}
+
+}

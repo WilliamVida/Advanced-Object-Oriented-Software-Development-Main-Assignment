@@ -1,0 +1,53 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
+
+public class PositionalStabilityCalculator {
+
+	private int afferentCoupling;
+	private int efferentCoupling;
+	private HashMap<Class, PositionalStabilityMeasurement> hashMap = new HashMap<Class, PositionalStabilityMeasurement>();
+
+	public void getPositionalStability(Class cls) {
+		// fields
+		// methods
+		// method parameters
+		// constructors
+		// constructors parameters
+		// interfaces
+		// interfaces parameters
+
+		Field[] fields = cls.getDeclaredFields();
+		Method[] methods = cls.getMethods();
+		Class[] methodParameters;
+		Constructor[] constructors = cls.getConstructors();
+		Class[] constructorParameters;
+		Class[] interfaces = cls.getInterfaces();
+
+		for (Method m : methods) {
+			// System.out.println("\nClass: " + cls + "\nMethod: " + m);
+			methodParameters = m.getParameterTypes();
+			for (Class mp : methodParameters) {
+				// System.out.println("Method Parameters: " + mp);
+			}
+		}
+
+		for (Constructor c : constructors) {
+			//System.out.println("\nClass: " + cls + "\nConstructor: " + c);
+			methodParameters = c.getParameterTypes();
+			for (Class mp : methodParameters) {
+				//System.out.println("Method Parameters: " + mp);
+			}
+		}
+
+		for (Class i : interfaces) {
+			// System.out.println("\nClass: " + cls + "\nInterface: " + i);
+		}
+
+	}
+
+}

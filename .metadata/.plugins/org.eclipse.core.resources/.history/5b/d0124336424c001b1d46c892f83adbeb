@@ -1,0 +1,32 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+
+public class PositionalStabilityCalculator {
+
+	private int afferentCoupling;
+	private int efferentCoupling;
+
+	public void getPositionalStability() {
+		// fields
+		// methods
+		// construtors
+		// interfaces
+
+		Field[] fields = cls.getDeclaredFields(); // Get the set of Fields
+		for (Field f : fields) {
+			Type type = f.getType();
+			if (graph.containsKey(type.getTypeName())) {
+				if (!classList.contains(type.getTypeName())) {
+					classList.add(type.getTypeName());
+					outdegree++;
+					Metric m = graph.get(type.getTypeName());
+					m.setInDegree(m.getInDegree() + 1);
+				}
+			}
+		}
+
+	}
+
+}

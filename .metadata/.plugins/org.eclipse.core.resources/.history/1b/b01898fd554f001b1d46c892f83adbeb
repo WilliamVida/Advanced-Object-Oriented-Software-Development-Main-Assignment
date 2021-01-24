@@ -1,0 +1,117 @@
+package ie.gmit.sw;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+
+/**
+ * This class analyses the JAR file by outputting basic information on all the
+ * classes contained in the JAR file.
+ * 
+ * @author William Vida
+ */
+public class JARInformation {
+
+	@SuppressWarnings("rawtypes")
+	public void jarInformation(Class cls) {
+		/**
+		 * Declare the variables.
+		 */
+		Field[] fields = cls.getDeclaredFields();
+		Method[] methods = cls.getDeclaredMethods();
+		int methodCount = 0;
+		Parameter[] methodParameters;
+		Class[] methodParameterTypes;
+		Constructor[] constructors = cls.getConstructors();
+		Parameter[] constructorParameters;
+		Class[] constructorParameterTypes;
+		Class[] interfaces = cls.getInterfaces();
+
+		/**
+		 * Output every field.
+		 */
+		for (Field f : fields) {
+			System.out.println("Field: " + f + " of type: " + f.getType());
+		}
+
+		/**
+		 * Iterate over the methods using a for loop.
+		 */
+		for (Method m : methods) {
+			/**
+			 * Ignore the standard Java classes.
+			 */
+			if (!m.toString().toLowerCase().contains("java")) {
+				/**
+				 * Output the respective class, method and parameter count.
+				 */
+				System.out.println("\nClass: " + cls);
+				System.out.println("Method: " + m);
+				System.out.println("Parameter count: " + m.getModifiers());
+
+				/**
+				 * Iterate over the method parameters and output them.
+				 */
+				methodParameters = m.getParameters();
+				for (Parameter mp : methodParameters) {
+					System.out.println("Method parameters: " + mp);
+				}
+
+				/**
+				 * Iterate over the method parameter types and output them.
+				 */
+				methodParameterTypes = m.getParameterTypes();
+				for (Class mpt : methodParameterTypes) {
+					System.out.println("Method parameter type: " + mpt);
+				}
+
+				/**
+				 * Output the method return type and count the number of methods.
+				 */
+				System.out.println("Method return type: " + m.getReturnType());
+				methodCount++;
+			}
+		}
+
+		System.out.println("The class " + cls + " has " + methodCount + " methods.\n");
+
+		/**
+		 * Iterate through the constrcutors using a for loop.
+		 */
+		for (Constructor c : constructors) {
+			/**
+			 * Ignore the standard Java classes and output the class and constructor.
+			 */
+			if (c.toString().toLowerCase().contains("java")) {
+				System.out.println("Class: " + cls);
+				System.out.println("Constructor: " + c);
+
+				/**
+				 * Iterate over the constructor parameters and out them.
+				 */
+				constructorParameters = c.getParameters();
+				for (Parameter cp : constructorParameters) {
+					System.out.println("Constructor parameters: " + cp);
+				}
+
+				/**
+				 * Iterate over the constructors and output them.
+				 */
+				constructorParameterTypes = c.getParameterTypes();
+				for (Class cpt : constructorParameterTypes) {
+					System.out.println("Constructor parameter type: " + cpt);
+				}
+			}
+		}
+
+		/**
+		 * Iterate over the interfaces and output them.
+		 */
+		for (Class i : interfaces) {
+			System.out.println("\nClass: " + cls);
+			System.out.println("Interface: " + i);
+		}
+	}
+
+}

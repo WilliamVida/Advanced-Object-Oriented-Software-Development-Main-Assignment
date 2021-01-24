@@ -1,0 +1,10 @@
+package ie.gmit.sw;
+
+public class BHandler implements Handler 
+{
+	public void handle() 
+	{
+		System.out.println("B handler");
+	}
+	
+}
